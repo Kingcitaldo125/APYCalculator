@@ -17,7 +17,7 @@ def getRoundedString(numb):
 
 
 principal = int(input('Enter_Principal\n'))
-rate = int(input('Enter_Rate in Percent\n'))
+rate = float(input('Enter_Rate in Percent\n'))
 years = int(input('Enter Number of Years to cycle(no more than 100)\n'))
 
 
