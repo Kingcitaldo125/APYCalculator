@@ -74,5 +74,5 @@ while i < years:
 	i += 1
 
 
-print("Contribution-less total", "$"+getRoundedString(pretotal))
-print("Total with Contribution(compounded)", "$"+getRoundedString(total))
+print("Contribution-less total:", "$"+getRoundedString(pretotal))
+print("Total with Contribution(compounded):", "$"+getRoundedString(total))
