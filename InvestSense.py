@@ -7,6 +7,20 @@ import re
 
 totalLimit = 0xE8D4A51000
 
+def commad(strs):
+	nStrs = ""
+	indx = 0
+	revStrs = strs[::-1]
+	strLen = len(revStrs)
+	for n,i in enumerate(revStrs):
+		nStrs += i
+		if indx == 2 and (strLen-n) > 2:
+			nStrs += ","
+			indx = -1
+		indx += 1
+	
+	return nStrs[::-1]
+
 def getRoundedString(numb):
 	retStr = str(numb)
 	reComp = re.match(r'(\d+)[.]\d*', str(numb))
@@ -14,7 +28,7 @@ def getRoundedString(numb):
 	if reComp:
 		retStr = reComp.group(1)
 
-	return retStr
+	return "$"+commad(retStr)
 
 
 principal = int(input('Enter Principal\n'))
@@ -60,19 +74,19 @@ i = 0
 
 while i < years:
 	pretotal += ((pretotal * rate)) % totalLimit
-	print("Total with no contribution:", "$"+getRoundedString(pretotal))
+	print("Total with no contribution:", getRoundedString(pretotal))
 	
 	total += cont
 	total += (total * rate) % totalLimit
-	print("Total with contribution(compounded):", "$"+getRoundedString(total))
+	print("Total with contribution(compounded):", getRoundedString(total))
 	
 	yearStr = str(i + 1)
 	
-	print(yearStr,"years total(rounded):", "$"+getRoundedString(total))
+	print(yearStr,"years total(rounded):", getRoundedString(total))
 	print('')
 		
 	i += 1
 
 
-print("Contribution-less total:", "$"+getRoundedString(pretotal))
-print("Total with Contribution(compounded):", "$"+getRoundedString(total))
+print("Contribution-less total:", getRoundedString(pretotal))
+print("Total with Contribution(compounded):", getRoundedString(total))
