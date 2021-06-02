@@ -31,7 +31,7 @@ def getRoundedString(numb):
 	return "$"+commad(retStr)
 
 
-principal = int(input('Enter Principal\n'))
+principal = float(input('Enter Principal\n'))
 rate = float(input('Enter Rate in Percent (APY)\n'))
 cont = float(input('Enter Contribution amount in dollars(per year - no more than $19,000)\n'))
 years = int(input('Enter Number of Years to cycle(no more than 100)\n'))
