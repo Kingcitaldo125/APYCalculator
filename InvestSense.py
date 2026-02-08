@@ -33,7 +33,8 @@ def getRoundedString(numb):
 
 principal = float(input('Enter Principal\n'))
 rate = float(input('Enter Rate in Percent (APY)\n'))
-cont = float(input('Enter Contribution amount in dollars(per year - no more than $19,000)\n'))
+#cont = float(input('Enter Contribution amount in dollars(per year - no more than $19,000)\n'))
+cont = float(input('Enter Contribution amount in dollars(per year)\n'))
 years = int(input('Enter Number of Years to cycle(no more than 100)\n'))
 
 
@@ -44,9 +45,9 @@ if cont <= 0:
 	print("Setting contribution amount to $1")
 	cont = 1
 	
-if cont > 19000:
-	print("Setting contribution amount to $19,000")
-	cont = 19000
+#if cont > 19000:
+#	print("Setting contribution amount to $19,000")
+#	cont = 19000
 
 if principal <= 0:
 	print("Rounding principal to 1 dollar")
