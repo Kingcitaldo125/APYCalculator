@@ -37,6 +37,12 @@ rate = float(input('Enter Rate in Percent (APY)\n'))
 cont = float(input('Enter Contribution amount in dollars(per year)\n'))
 years = int(input('Enter Number of Years to cycle(no more than 100)\n'))
 
+freq_input = input('Enter Compounding Frequency (daily, weekly, monthly, yearly)\n').strip().lower()
+freq_map = {'daily': 365, 'weekly': 52, 'monthly': 12, 'yearly': 1}
+if freq_input not in freq_map:
+	print("Invalid frequency. Defaulting to yearly.")
+	freq_input = 'yearly'
+n_periods = freq_map[freq_input]
 
 rate = rate / 100
 
@@ -44,7 +50,7 @@ rate = rate / 100
 if cont <= 0:
 	print("Setting contribution amount to $1")
 	cont = 1
-	
+
 #if cont > 19000:
 #	print("Setting contribution amount to $19,000")
 #	cont = 19000
@@ -65,27 +71,32 @@ if years > 100:
 	print("Rounding years to 100")
 	years = 100
 
+period_rate = rate / n_periods
+cont_per_period = cont / n_periods
 
 pretotal = round(principal, 2)
 total = round(principal, 2)
 print('')
 print("Starting Principal:", getRoundedString(total))
+print("Compounding Frequency:", freq_input, "(" + str(n_periods) + "x per year)")
 i = 0
 
 
 while i < years:
-	pretotal += ((pretotal * rate)) % totalLimit
+	for _ in range(n_periods):
+		pretotal += ((pretotal * period_rate)) % totalLimit
+
+		total += cont_per_period
+		total += (total * period_rate) % totalLimit
+
 	print("Total with no contribution:", getRoundedString(pretotal))
-	
-	total += cont
-	total += (total * rate) % totalLimit
 	print("Total with contribution(compounded):", getRoundedString(total))
-	
+
 	yearStr = str(i + 1)
-	
+
 	print(yearStr,"years total(rounded):", getRoundedString(total))
 	print('')
-		
+
 	i += 1
 
 
