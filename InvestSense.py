@@ -40,7 +40,7 @@ years = int(input('Enter Number of Years to cycle(no more than 100)\n'))
 freq_input = input('Enter Compounding Frequency\n1. Annual\n2. Semi-Annual\n3. Quarterly\n').strip()
 freq_map = {'1': 1, '2': 2, '3': 4}
 if freq_input not in freq_map:
-	print("Invalid selection. Defaulting to Annual.")
+	print("Invalid Compounding Frequency selection. Defaulting to Annual compounding.")
 	freq_input = '1'
 n_periods = freq_map[freq_input]
 freq_labels = {'1': 'Annual', '2': 'Semi-Annual', '3': 'Quarterly'}
