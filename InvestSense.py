@@ -85,9 +85,10 @@ i = 0
 while i < years:
 	for _ in range(n_periods):
 		pretotal += ((pretotal * period_rate)) % totalLimit
-		total += (total * period_rate) % totalLimit
 
 	total += cont
+	for _ in range(n_periods):
+		total += (total * period_rate) % totalLimit
 
 	print("Total with no contribution:", getRoundedString(pretotal))
 	print("Total with contribution(compounded):", getRoundedString(total))
