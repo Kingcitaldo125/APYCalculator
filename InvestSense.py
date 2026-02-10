@@ -37,12 +37,13 @@ rate = float(input('Enter Rate in Percent (APY)\n'))
 cont = float(input('Enter Contribution amount in dollars(per year)\n'))
 years = int(input('Enter Number of Years to cycle(no more than 100)\n'))
 
-freq_input = input('Enter Compounding Frequency (daily, weekly, monthly, yearly)\n').strip().lower()
-freq_map = {'daily': 365, 'weekly': 52, 'monthly': 12, 'yearly': 1}
+freq_input = input('Enter Compounding Frequency\n1. Annual\n2. Semi-Annual\n3. Quarterly\n').strip()
+freq_map = {'1': 1, '2': 2, '3': 4}
 if freq_input not in freq_map:
-	print("Invalid frequency. Defaulting to yearly.")
-	freq_input = 'yearly'
+	print("Invalid selection. Defaulting to Annual.")
+	freq_input = '1'
 n_periods = freq_map[freq_input]
+freq_labels = {'1': 'Annual', '2': 'Semi-Annual', '3': 'Quarterly'}
 
 rate = rate / 100
 
@@ -72,22 +73,21 @@ if years > 100:
 	years = 100
 
 period_rate = rate / n_periods
-cont_per_period = cont / n_periods
 
 pretotal = round(principal, 2)
 total = round(principal, 2)
 print('')
 print("Starting Principal:", getRoundedString(total))
-print("Compounding Frequency:", freq_input, "(" + str(n_periods) + "x per year)")
+print("Compounding Frequency:", freq_labels[freq_input], "(" + str(n_periods) + "x per year)")
 i = 0
 
 
 while i < years:
 	for _ in range(n_periods):
 		pretotal += ((pretotal * period_rate)) % totalLimit
-
-		total += cont_per_period
 		total += (total * period_rate) % totalLimit
+
+	total += cont
 
 	print("Total with no contribution:", getRoundedString(pretotal))
 	print("Total with contribution(compounded):", getRoundedString(total))
