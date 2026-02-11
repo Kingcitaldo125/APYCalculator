@@ -7,6 +7,7 @@ import re
 
 totalLimit = 0xE8D4A51000
 
+# FIXME: rename this function to have a better name
 def commad(strs):
 	nStrs = ""
 	indx = 0
@@ -34,27 +35,27 @@ def getRoundedString(numb):
 principal = float(input('Enter Principal\n'))
 rate = float(input('Enter Rate in Percent (APY)\n'))
 #cont = float(input('Enter Contribution amount in dollars(per year - no more than $19,000)\n'))
-cont = float(input('Enter Contribution amount in dollars(per year)\n'))
+cont = float(input('Enter Contribution amount in dollars (per year)\n'))
 years = int(input('Enter Number of Years to cycle(no more than 100)\n'))
 
-freq_input = input('Enter Compounding Frequency\n1. Annual\n2. Semi-Annual\n3. Quarterly\n').strip()
+freq_input = input('Enter Compounding Frequency:\n1. Annual\n2. Semi-Annual\n3. Quarterly\n').strip()
 freq_map = {'1': 1, '2': 2, '3': 4}
 if freq_input not in freq_map:
 	print("Invalid Compounding Frequency selection. Defaulting to Annual compounding.")
 	freq_input = '1'
-n_periods = freq_map[freq_input]
+n_periods = max(1,freq_map[freq_input])
 freq_labels = {'1': 'Annual', '2': 'Semi-Annual', '3': 'Quarterly'}
 
 rate = rate / 100
 
-
-if cont <= 0:
-	print("Setting contribution amount to $1")
-	cont = 1
-
 #if cont > 19000:
 #	print("Setting contribution amount to $19,000")
 #	cont = 19000
+
+# Set reasonable defaults with print statements informing the user of the changes
+if cont <= 0:
+	print("Setting contribution amount to $1")
+	cont = 1
 
 if principal <= 0:
 	print("Rounding principal to 1 dollar")
@@ -91,11 +92,11 @@ while i < years:
 		total += (total * period_rate) % totalLimit
 
 	print("Total with no contribution:", getRoundedString(pretotal))
-	print("Total with contribution(compounded):", getRoundedString(total))
+	print("Total with contribution (compounded):", getRoundedString(total))
 
 	yearStr = str(i + 1)
 
-	print(yearStr,"years total(rounded):", getRoundedString(total))
+	print(yearStr,"years total (rounded):", getRoundedString(total))
 	print('')
 
 	i += 1
@@ -103,3 +104,4 @@ while i < years:
 
 print("Contribution-less total:", getRoundedString(pretotal))
 print("Total with Contribution(compounded):", getRoundedString(total))
+
